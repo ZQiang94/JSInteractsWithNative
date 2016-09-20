@@ -6,38 +6,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private WebView contentWebView = null;
-
+    private WebView mWebView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        contentWebView = (WebView) findViewById(R.id.webview);
-        // 启用javascript
-        contentWebView.getSettings().setJavaScriptEnabled(true);
-        // 从assets目录下面的加载html
-        contentWebView.loadUrl("file:///android_asset/web.html");
-        contentWebView.addJavascriptInterface(MainActivity.this, "android");
+        mWebView = (WebView) findViewById(R.id.webview);
+        //支持JavaScript脚本
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        // 加载html
+        mWebView.loadUrl("file:///android_asset/web.html");
+        //android为flag
+        mWebView.addJavascriptInterface(MainActivity.this, "android");
 
-
-        //无参调用Js点击
+        //调用js函数
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 无参数调用
-                contentWebView.loadUrl("javascript:javacalljs()");
+                mWebView.loadUrl("javascript:javaCallJs()");
             }
         });
-        //有参调用Js点击
+        //调用js函数并携带参数
+        final String param = "'这是参数，注意这个参数的格式'";
         findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 传递参数调用
-                contentWebView.loadUrl("javascript:javacalljswith(" + "'http://blog.csdn.net/Leejizhou'" + ")");
+                mWebView.loadUrl("javascript:javaCallJswithParam(" + param + ")");
             }
         });
     }
@@ -48,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(MainActivity.this, "show", Toast.LENGTH_LONG).show();
+                new AlertDialog.Builder(MainActivity.this).setMessage("native方法触发").show();
             }
         });
     }
@@ -56,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
     @JavascriptInterface
     public void startFunction(final String text) {
         runOnUiThread(new Runnable() {
-
             @Override
             public void run() {
                 new AlertDialog.Builder(MainActivity.this).setMessage(text).show();

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
               tools:context=".MainActivity">
@@ -10,22 +11,24 @@
         android:layout_height="wrap_content"
         android:text="Android"
         />
+
     <Button
         android:id="@+id/button"
-        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="调用JS"
-        android:background="@color/colorAccent"
+        android:layout_margin="8dp"
+        android:background="@color/colorPrimary"
+        android:text="native调用JS，无参"
         android:textColor="#ffffff"
         />
+
     <Button
         android:id="@+id/button2"
-        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="调用有参JS"
+        android:layout_margin="8dp"
         android:background="@color/colorAccent"
+        android:text="vative调用JS，有参"
         android:textColor="#ffffff"
         />
 
@@ -33,12 +36,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WebView"
         android:layout_marginTop="8dp"
+        android:text="WebView"
         />
 
     <WebView
-
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

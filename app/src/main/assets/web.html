@@ -1,0 +1,29 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+    <script type="text/javascript">
+
+        function javaCallJs(){
+        	 document.getElementById("content").innerHTML ="<br\>JAVA调用了JS的无参函数";
+        }
+
+        function javaCallJswithParam(arg){
+        	 document.getElementById("content").innerHTML =
+        	 ("<br\>"+arg);
+        }
+
+    </script>
+</head>
+<body>
+HTML 内容显示 <br/>
+<h1>
+    <div id="content">content</div>
+</h1>
+<br/>
+<input type="button" value="调用native方法" onclick="window.android.startFunction()"/>
+<br/>
+<br/>
+<input type="button" value="调用native方法并传参"
+       onclick="window.android.startFunction('native方法被js调用，并传参')"/>
+</body>
+</html>
