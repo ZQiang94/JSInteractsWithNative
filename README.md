@@ -1,6 +1,6 @@
 ##js与native的交互
 ####概述
-目前所常用的native与js交互有两种方式，分别为上面提到的方法1与方法2，这两种方式各有利弊，在4.2之前使用方法1存在安全问题，
+目前所常用的native与js交互有两种方式，分别为 下面提到的方法1与方法2，这两种方式各有利弊，在4.2之前使用方法1存在安全问题，
 类似与sql的注入漏洞，这是运行时虚拟机的漏洞，暂且这样理解吧。另外无论哪种方式，都要与页面开发人员定要协议。
 ###sample运行效果图
 <div align=center><img src="https://github.com/ZQiang94/JSInteractsWithNative/blob/master/imgs/GIF.gif"/></div>
