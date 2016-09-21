@@ -1,5 +1,7 @@
 ##js与native的交互
-
+####概述
+目前所常用的native与js交互有两种方式，分别为上面提到的方法1与方法2，这两种方式各有利弊，在4.2之前使用方法1存在安全问题，
+类似与sql的注入漏洞，这是运行时虚拟机的漏洞，暂且这样理解吧。另外无论哪种方式，都要与页面开发人员定要协议。
 ###sample运行效果图
 <div align=center><img src="https://github.com/ZQiang94/JSInteractsWithNative/blob/master/imgs/GIF.gif"/></div>
 
@@ -168,9 +170,7 @@ function cfm() {
 实现原理就是在页面中触发的方法被webView中设置的WebChromeClient给拦截了，从而执行了WebChromeClient中重写的onXxx()方法，
 没有执行页面中相应的onXxx()方法，这是方式相对简单，而且安全。
 
-####小结
-目前所常用的native与js交互有两种方式，分别为上面提到的方法1与方法2，这两种方式各有利弊，在4.2之前使用方法1存在安全问题，
-类似与sql的注入漏洞，这是运行时虚拟机的漏洞，暂且这样理解吧。另外无论哪种方式，都要与页面开发人员定要协议。
+
 
 
 参考链接：
