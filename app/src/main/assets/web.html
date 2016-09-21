@@ -12,6 +12,19 @@
         	 ("<br\>"+arg);
         }
 
+        function cfm() {
+            confirm("")
+        }
+
+        function pmt() {
+           prompt("","");
+        }
+
+        function onAlert()
+        {
+            alert("这是网页中的alert方法，如果重写了mWebView的onAlert方法，该方法不会执行");
+        }
+
     </script>
 </head>
 <body>
@@ -20,10 +33,15 @@ HTML 内容显示 <br/>
     <div id="content">content</div>
 </h1>
 <br/>
-<input type="button" value="调用native方法" onclick="window.android.startFunction()"/>
+<input type="button" value="调用native方法"
+       onclick="window.android.startFunction()"/>
 <br/>
 <br/>
 <input type="button" value="调用native方法并传参"
        onclick="window.android.startFunction('native方法被js调用，并传参')"/>
+
+<p><input type="button" onclick="cfm()" value="Confirm"/></p>
+<p><input type="button" onclick="pmt()" value="Prompt"/></p>
+<p><input type="button" onclick="onAlert()" value="Alert"/> <br />
 </body>
 </html>

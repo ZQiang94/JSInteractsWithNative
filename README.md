@@ -1,8 +1,9 @@
 ##js与native的交互
 
-###方法1(webClient.loadUrl())：
 ###sample运行效果图
 <div align=center><img src="https://github.com/ZQiang94/JSInteractsWithNative/blob/master/imgs/GIF.gif"/></div>
+
+###方法1(webClient.loadUrl())：
 ####native:加载web页面并进行相关setting;
 ```javascript
         mWebView = (WebView) findViewById(R.id.webview);
@@ -95,11 +96,84 @@ function execute(args) {
 在Android API Level 17（Android 4.2）之后，可以通过添加@JavascriptInterface这个注解来避免该漏洞，在4.1之前可以使用方法2
 实现native与js之间的交互。
 
-###方法2（alert()/prompt()/confirm()）：
+###方法2（prompt()$onJsPrompt()/confirm()$onConfirm()/alert()$onAlert()）：
+####继承WebChromeClient重写该方法的onJsPrompt()/onConfirm()/onAlert()方法，用到那个方法重写那个就行，然后设置webView的WebChromeClient为该重写的类
+####具体实现
+```javascript
+class HarlanWebChromeClient extends WebChromeClient {
 
+        /*此处覆盖的是javascript中的alert方法。
+         *当网页需要弹出alert窗口时，会执行onJsAlert中的方法
+         * 网页自身的alert方法不会被调用。
+         */
+        @Override
+        public boolean onJsAlert(WebView view, String url, String message,
+                                 JsResult result) {
+            show("onJsAlert");
+            result.confirm();
+            return true;
+        }
+
+        /*此处覆盖的是javascript中的confirm方法。
+         *当网页需要弹出confirm窗口时，会执行onJsConfirm中的方法
+         * 网页自身的confirm方法不会被调用。
+         */
+        @Override
+        public boolean onJsConfirm(WebView view, String url,
+                                   String message, JsResult result) {
+            show("onJsConfirm");
+            result.confirm();
+            return true;
+        }
+
+        /*此处覆盖的是javascript中的confirm方法。
+         *当网页需要弹出confirm窗口时，会执行onJsConfirm中的方法
+         * 网页自身的confirm方法不会被调用。
+         */
+        @Override
+        public boolean onJsPrompt(WebView view, String url,
+                                  String message, String defaultValue,
+                                  JsPromptResult result) {
+            show("onJsPrompt....");
+            result.confirm();
+            return true;
+        }
+```
+然后给webView设置该重写的类
+```javascript
+//设置ChromeClient
+mWebView.setWebChromeClient(new HarlanWebChromeClient());
+```
+####相应的在JS中的具体实现代码如下
+```javascript
+function cfm() {
+            confirm("")
+        }
+
+        function pmt() {
+           prompt("","");
+        }
+
+        function onAlert()
+        {
+            alert("这是网页中的alert方法，如果重写了mWebView的onAlert方法，该方法不会执行");
+        }
+```
+####触发页面中的js函数，例如：
+```javascript
+<p><input type="button" onclick="cfm()" value="Confirm"/></p>
+<p><input type="button" onclick="pmt()" value="Prompt"/></p>
+<p><input type="button" onclick="onAlert()" value="Alert"/>
+```
+实现原理就是在页面中触发的方法被webView中设置的WebChromeClient给拦截了，从而执行了WebChromeClient中重写的onXxx()方法，
+没有执行页面中相应的onXxx()方法，这是方式相对简单，而且安全。
+
+####小结
+目前所常用的native与js交互有两种方式，分别为上面提到的方法1与方法2，这两种方式各有利弊，在4.2之前使用方法1存在安全问题，
+类似与sql的注入漏洞，这是运行时虚拟机的漏洞，暂且这样理解吧。另外无论哪种方式，都要与页面开发人员定要协议。
 
 
 参考链接：
-http://blog.csdn.net/wu56yue/article/details/51236587
+https://github.com/Sunzxyong/RainbowBridge
 
 
