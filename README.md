@@ -81,7 +81,7 @@
         });
     }
 ```
-上段备注中提到“由于安全原因 需要加 @JavascriptInterface”，是指在4.2版本之前的addjavascriptInterface接口引起的漏洞，
+####:red_circle:上段备注中提到“由于安全原因 需要加 @JavascriptInterface”，是指在4.2版本之前的addjavascriptInterface接口引起的漏洞，
 可能导致恶意网页通过Js方法遍历刚刚通过addjavascriptInterface注入进来的类的所有方法从中获取到getClass方法，然后通过反
 射获取到Runtime对象，进而调用Runtime对象的exec方法执行一些操作，恶意的Js代码如下：
 ```javascript
