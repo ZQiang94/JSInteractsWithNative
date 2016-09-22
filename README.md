@@ -93,7 +93,7 @@ function execute(args) {
     }
 }
 ```
-在Android API Level 17（Android 4.2）之后，可以通过添加@JavascriptInterface这个注解来避免该漏洞，在4.1之前可以使用方法2
+在Android API Level 17（Android 4.2）之后，可以通过添加@JavascriptInterface这个注解来避免该漏洞，在4.1及之前可以使用方法2
 实现native与js之间的交互。
 
 ###方法2（prompt()$onJsPrompt()/confirm()$onConfirm()/alert()$onAlert()）：
